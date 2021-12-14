@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace UpdateService
 {
@@ -41,27 +36,39 @@ namespace UpdateService
         Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff}: Updating DataBase..");
     }
 
+        /// <summary>
+        /// Generate Random string, using 26 characters
+        /// </summary>
+        /// <returns>randomString</returns>
+        private static string GenerateRandomName()
+        {
+            const int numChar = 26;
+            string randomString = String.Empty;
+            Random rnd = new Random();
+            Char[] pwdChars = new Char[numChar] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+                                                  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            for (int i = 0; i < 10; i++)
+                randomString += pwdChars[rnd.Next(0, 25)];
+            return randomString;
+        }
+
         public static void UpdateDb()
         {
             SqlConnection conn = DbUtils.GetDbConnection();
+            string firstname = GenerateRandomName();
+            string lastName = GenerateRandomName();
+
             conn.Open();
             try
             {
-                string sql = "Update Employee set Salary = @salary where Emp_Id = @empId";
+                string sql = "INSERT INTO Users (FirstName, LastName) VALUES ( @firstName, @lastName)";
 
                 SqlCommand cmd = new SqlCommand();
 
                 cmd.Connection = conn;
                 cmd.CommandText = sql;
 
-                // Добавить и настроить значение для параметра.
-                cmd.Parameters.Add("@salary", SqlDbType.Float).Value = 850;
-                cmd.Parameters.Add("@empId", SqlDbType.Decimal).Value = 7369;
-
-                // Выполнить Command (Используется для delete, insert, update).
                 int rowCount = cmd.ExecuteNonQuery();
-
-                Console.WriteLine("Row Count affected = " + rowCount);
             }
             catch (Exception e)
             {
@@ -74,9 +81,6 @@ namespace UpdateService
                 conn.Dispose();
                 conn = null;
             }
-
-
-            Console.Read();
         }
 }
     }

@@ -1,8 +1,8 @@
 ﻿namespace SqlRequests.Models
 {
-    public class Properties
+    public sealed class Property
     {
-        public int PropId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace SqlRequests.Models
 {
-    public class Firms
+    public sealed class Firm
     {
-        public int FirmId { get; set; }
+        public int Id { get; set; }
         public string JurName { get; set; }
 
     }

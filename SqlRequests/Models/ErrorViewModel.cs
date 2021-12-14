@@ -1,5 +1,3 @@
-using System;
-
 namespace SqlRequests.Models
 {
     public class ErrorViewModel

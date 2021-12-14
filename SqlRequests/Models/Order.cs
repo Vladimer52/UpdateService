@@ -2,14 +2,17 @@
 
 namespace SqlRequests.Models
 {
-    public class Orders
+    public sealed class Order
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
+
         public int ContractId { get; set; }
-        public Contracts Contracts { get; set; }
+        public Contracts Contract { get; set; }
+
         public DateTime CreateDate { get; set; }
+
         public int UserId { get; set; }
-        public Users Users { get; set; }
+        public User User { get; set; }
 
     }
 }
